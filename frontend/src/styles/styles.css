@@ -1,0 +1,243 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap");
+@import url("animations.css");
+
+html,
+body {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	place-items: center;
+	min-width: 100%;
+	min-height: 100vh;
+	font-family: "Montserrat", sans-serif;
+}
+
+#root {
+	min-width: 100%;
+	min-height: 100vh;
+	margin: 0 auto;
+}
+
+.container {
+	height: 100vh;
+	width: 100%;
+	background: linear-gradient(90deg, #003366, #001a33);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.img_logo {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 50%;
+	height: 100%;
+	object-fit: contain;
+	padding: 0 10vh;
+	img {
+		height: auto;
+		width: 150px;
+	}
+	/* Falta agregar que el texto siga centrado aun cuando la resolucion sea muy pequeña */
+	h1 {
+		margin: 0;
+		color: #eef7ff;
+		font-weight: bold;
+		font-size: 50px;
+	}
+	h2 {
+		margin: 0;
+		color: #eef7ff;
+		font-weight: lighter;
+		font-size: 30px;
+	}
+}
+
+.form {
+	background-color: #eef7ff;
+	padding: 6.5vh;
+	display: flex;
+	flex-direction: column;
+	border-radius: 24px;
+	align-items: center;
+	h1 {
+		color: #003366;
+		font-size: 30px;
+		font-weight: bold;
+		margin: 0;
+		margin-bottom: 3vh;
+	}
+	div {
+		width: 100%;
+		display: flex;
+	}
+	input {
+		display: flex;
+		border: 3px solid #003366;
+		border-radius: 12px;
+		padding: 8px 5px;
+		margin-bottom: 1vh;
+		background-color: #eef7ff;
+		font-weight: regular;
+		font-size: 16px;
+		color: #003366;
+		border-radius: 12px;
+	}
+	input::placeholder {
+		color: rgba(0, 51, 102, 0.3);
+		font-weight: light;
+	}
+	input:focus {
+		background-color: rgba(0, 110, 223, 0.14);
+		font-weight: regular;
+	}
+	button {
+		display: flex;
+		justify-content: center;
+		padding: 1.2vh 0;
+		border-radius: 12px;
+		border: none;
+		width: 100%;
+		background-color: #003366;
+		color: #eef7ff;
+		font-weight: bold;
+		font-size: 16px;
+		border: 3px solid #003366;
+	}
+	button:hover{
+		border: 3px solid #003366;
+		background-color: #eef7ff;
+		color: #003366;
+		transition: .3s ease-out;
+	}
+	div {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		p {
+			margin: 0;
+			padding: 2vh 0 0 0;
+		}
+	}
+}
+
+.navbar {
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	display: block;
+	background-color: #003366;
+	height: 9vh;
+	overflow: hidden;
+	ul {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 5vw;
+		margin: 0;
+		height: 100%;
+		li {
+			display: flex;
+			align-items: center;
+			padding: 0 10px;
+			position: relative;
+			height: 100%;
+			img {
+				width: auto;
+				height: 7vh;
+				object-fit: contain;
+			}
+			a {
+				color: white;
+				font-size: 0.9em;
+				text-decoration: none;
+				position: relative;
+				border-bottom: transparent 3px solid;
+				transition: border-color 0.3s ease;
+				padding: 0 10px 3px 10px;
+				box-sizing: border-box;
+			}
+			:not(.active)::before {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 3px;
+				background-color: #006edf;
+				transform: scaleX(0);
+				transform-origin: bottom;
+				transition: transform 0.3s ease;
+			}
+			:not(.active):hover::before {
+				animation: heartbeat 5s ease-in-out infinite;
+				transform: scaleX(1);
+			}
+			.active {
+				font-weight: bold;
+				background-color: #eef7ff;
+				color: #002651;
+				margin: 0;
+				height: 100%;
+				line-height: 9vh;
+			}
+		}
+	}
+}
+
+.profile_page{
+	background-color: #eef7ff;
+	display: block;
+	height: 90vh;
+	padding: 9vh 5vh 0 5vh;
+	.sections{
+		display: flex;
+		height: 100%;
+		width: 100%;
+		justify-content: space-around;
+		align-items: center;
+		.profile_image{
+		height: 50vh;
+		width: auto;
+		}
+	}
+}
+
+.error_404{
+	height: 100vh;
+	width: 100%;
+	background: linear-gradient(90deg, #003366, #001a33);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.card{
+		background-color: #eef7ff;
+		padding: 6.5vh;
+		border-radius: 24px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		h1{
+			margin: 0;
+			font-size: 120px;
+			font-weight: bold;
+			color: #003366;
+		}
+		h3{
+			margin: 0;
+			font-size: 24px;
+			font-weight: lighter;
+			color: #003366;
+		}
+		h4{
+			margin: 0;
+			padding-top: 2vh;
+			font-size: 14px;
+			font-weight: lighter;
+			color: #003366;
+		}
+	}
+}
