@@ -1,35 +1,59 @@
-import React from "react";
 import Form from "../components/Form";
 import Navbar from "../components/Navbar";
+import { profile } from "../services/auth.service";
+import { useState, useEffect } from "react";
 
 const Profile = () => {
+  const [userProfile, setUserProfile] = useState({
+    username: '',
+    email: '',
+    rut: '',
+    rolName: ''
+  });
+
+  useEffect(() => {
+    async function dataProfile(){  
+      try {
+        const { data } = await profile();
+        setUserProfile(data);
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      }
+    }
+    dataProfile();
+  }, []);
+
   return (
     <main className="profile_page">
       <Navbar />
       <div className="sections">
         <img className="profile_image" src="profile.png" alt="Imagen de perfil" />
         <Form
-		backgroundColor="#FFFFFF"
+          backgroundColor="#FFFFFF"
           fields={[
             {
               name: "username",
-              placeholder: "Nombre del usuario",
               type: "text",
+              value: userProfile.username,
+              disabled: true,
             },
             {
-            	name: "email",
-            	placeholder: "Correo electrónico del usuario",
+              name: "email",
               type: "email",
+              value: userProfile.email,
+              disabled: true,
             },
             {
               name: "rut",
-              placeholder: "Rut del usuario",
               type: "text",
+              value: userProfile.rut,
+              disabled: true,
             },
             {
               name: "role",
-              placeholder: "Rol del usuario",
               type: "text",
+              value: userProfile.rolName,
+              disabled: true,
             },
           ]}
         />
