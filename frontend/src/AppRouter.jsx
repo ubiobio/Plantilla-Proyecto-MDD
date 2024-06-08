@@ -1,25 +1,47 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Home from './pages/Home'
-import Profile from './pages/Profile'
-import Error404 from './pages/Error404'
-import EditUser from './pages/EditUser'
+import { Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import Error404 from './pages/Error404';
+import EditUser from './pages/EditUser';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const AppRouter = () => {
   return (
     <Routes>
-        <Route path = "/" element = {<Login />} >
-            <Route index element = {<Login />} />
-        </Route>
-        <Route path = "/register" element = {<Register />} />
-        <Route path="home" element={<Home />} />
-        <Route path="users" element={<EditUser />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="*" element={<Error404 />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      
+      {/* Rutas protegidas */}
+      <Route 
+        path="/home" 
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/users" 
+        element={
+          <ProtectedRoute>
+            <EditUser />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/profile" 
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } 
+      />
+      
+      <Route path="*" element={<Error404 />} />
     </Routes>
-  )
-}
+  );
+};
 
-export default AppRouter
+export default AppRouter;
