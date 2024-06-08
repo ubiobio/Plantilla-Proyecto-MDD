@@ -12,17 +12,18 @@ export async function login(req, res) {
             .populate("roles")
             .exec();
 
-        if (!userFound) {
+        if (userFound === null) {
             return res.status(400).json({
                 message: "El correo electrónico es incorrecto"
             });
         }
 
+
         const matchPassword = await User.comparePassword(
             user.password,
             userFound.password
-        )
-        
+        );
+
         if (!matchPassword) {
             return res.status(400).json({
                 message: "La contraseña es incorrecta"
@@ -38,7 +39,7 @@ export async function login(req, res) {
 
         res.status(200).json({
             message: "Inicio de sesión exitoso!",
-            data: req.session.user // Devuelve los datos del usuario en la sesión
+            data: req.session.user
         });
 
     } catch (error) {
@@ -52,24 +53,23 @@ export async function register(req, res) {
         const userData = req.body;
 
         const existingUser = await User.findOne({ email: userData.email });
-         // Verificar si el correo electrónico ya está en uso
+        // Verificar si el correo electrónico ya está en uso
         if (existingUser) {
             return res.status(400).json({ message: "El correo electrónico ya está registrado." });
         }
 
-        // Obtener los ObjectIds de los roles definidos en la constante ROLES
-        const roles = await Role.find({ name: { $in: userData.roles } });
-        if (!roles || roles.length === 0) {
-            return res.status(400).json({ message: "Roles no válidos." });
+
+        const userRole = await Role.findOne({ name: 'user' });
+        if (!userRole) {
+            return res.status(500).json({ message: "Error al asignar el rol de usuario." });
         }
 
-        // Crear un nuevo usuario con los roles obtenidos
         const newUser = new User({
             username: userData.username,
             email: userData.email,
             rut: userData.rut,
             password: await User.encryptPassword(userData.password),
-            roles: roles.map(role => role._id) // Mapear los ObjectIds de los roles
+            roles: [userRole._id] // Asignar el ObjectId del rol "user"
         });
         await newUser.save();
 
@@ -83,7 +83,25 @@ export async function register(req, res) {
     }
 }
 
-export const logout = (req, res) => {
+export async function profile(req, res) {
+    try{
+
+        const data = req.session.user;
+    
+        if(!data) {
+            return res.status(400).json({
+                message: "Se debe iniciar sesión!"
+            })
+        }
+
+        res.status(200).json(data);
+    } catch (error) {
+        console.log("Error en auth.controller.js -> profile():", error);
+        res.status(500).json({ message: "Error interno del servidor" });
+    }
+}
+
+export function logout(req, res) {
     try {
         if (req.session) {
             req.session.destroy((err) => {
@@ -91,7 +109,7 @@ export const logout = (req, res) => {
                     console.log("Error al cerrar sesión:", err);
                     res.status(500).json({ message: "Error al cerrar la sesión" });
                 } else {
-                    res.clearCookie('miCookie'); // Limpiar la cookie de sesión
+                    res.clearCookie('miCookie');
                     res.status(200).json({ message: "Sesión cerrada exitosamente" });
                 }
             });
@@ -102,4 +120,4 @@ export const logout = (req, res) => {
         console.log("Error en auth.controller.js -> logout():", error);
         res.status(500).json({ message: "Error interno del servidor" });
     }
-};
+}
