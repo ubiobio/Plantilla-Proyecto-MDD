@@ -3,8 +3,17 @@ import User from '../models/user.model.js';
 
 export async function getUser(req, res) {
     try {
-        const id = req.params.id;
-        const user = await User.findById(id);
+        const rutUser = req.query.rut;
+
+        if (!rutUser) {
+            res.status(400).json({
+                message: "El parámetro 'rut' es requerido.",
+                data: null
+            });
+            return;
+        }
+
+        const user = await User.findOne({rut: rutUser});
 
         if(!user){
             res.status(404).json({
@@ -39,23 +48,31 @@ export async function getUsers(req, res) {
 
 export async function updateUser(req, res) {
     try {
-        const id = req.params.id;
-        const user = req.body
+        const rutUser = req.query.rut;
+        const updatedData = req.body;
 
-        const userMod = await User.findByIdAndUpdate(id, user, {new: true});
-
-        if(!userMod){
-            res.status(404).json({
-                message:"Usuario no encontrado",
+        if (!rutUser) {
+            res.status(400).json({
+                message: "El parámetro 'rut' es requerido.",
                 data: null
-            })
+            });
+            return;
+        }
+
+        const userMod = await User.findOneAndUpdate({ rut: rutUser }, updatedData, { new: true });
+
+        if (!userMod) {
+            res.status(404).json({
+                message: "Usuario no encontrado",
+                data: null
+            });
             return;
         }
 
         res.status(200).json({
             message: "Usuario actualizado correctamente!",
             data: userMod
-        })
+        });
 
     } catch (error) {
         console.log("Error en user.controller.js -> updateUser(): ", error);
@@ -65,11 +82,23 @@ export async function updateUser(req, res) {
 
 export async function deleteUser(req, res) {
     try {
-        const id = req.params.id;
-        const user = await User.findByIdAndDelete(id);
-        
-        if(!user){
-            return res.status(404).json("Usuario no encontrado")
+        const rutUser = req.query.rut;
+
+        if (!rutUser) {
+            res.status(400).json({
+                message: "El parámetro 'rut' es requerido.",
+                data: null
+            });
+            return;
+        }
+
+        const user = await User.findOneAndDelete({ rut: rutUser });
+
+        if (!user) {
+            return res.status(404).json({
+                message: "Usuario no encontrado",
+                data: null
+            });
         }
 
         res.status(200).json({
