@@ -29,7 +29,7 @@ async function setupServer() {
       name: 'miCookie',
       secret: `${PASS_SECRET}`,
       resave: false,
-      saveUninitialized: true,
+      saveUninitialized: false,
     }));
 
     // Agregamos los cors
