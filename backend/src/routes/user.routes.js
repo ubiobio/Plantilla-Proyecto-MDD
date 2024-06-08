@@ -13,8 +13,8 @@ const router = Router();
 
 // Define las rutas para los usuarios
 router.get("/", isAdmin, getUsers);
-router.get("/:id", isAdmin, getUser);
-router.put("/:id", isAdmin, updateUser);
-router.delete("/:id", isAdmin, deleteUser);
+router.get("/1", isAdmin, getUser);
+router.put("/", isAdmin, updateUser);
+router.delete("/", isAdmin, deleteUser);
 
 export default router;
