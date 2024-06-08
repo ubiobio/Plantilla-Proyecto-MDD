@@ -1,8 +1,18 @@
-import React from "react";
+import { useNavigate } from 'react-router-dom';
+import { register } from '../services/auth.service.js';
 import Form from "../components/Form";
 import ImgLogo from "../components/ImgLogo";
 
 const Register = () => {
+
+	const navigate = useNavigate();
+
+    const registerSubmit = (data) => {
+        register(data).then(() => {
+            navigate('/')
+        })
+    }
+
 	return (
 		<main className="container">
 			<ImgLogo />
@@ -24,12 +34,6 @@ const Register = () => {
                         placeholder: "Ingrese su rut",
                         type: "text",
                     },
-                    {
-                        //! Revisar si en la data se envia correctamente con el rol por default de "user"
-                        name: "role",
-                        value: "user",
-                        type: "hidden",
-                    },
 					{
 						name: "password",
 						placeholder: "Ingrese su contraseña",
@@ -37,6 +41,7 @@ const Register = () => {
 					},
 				]}
 				buttonText="Registrarse"
+				onSubmit={registerSubmit}
 				footerContent={
 					<p>
 						¿Ya tienes cuenta?, <a href="/">Inicia sesión aquí!</a>
