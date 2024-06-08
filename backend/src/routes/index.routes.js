@@ -12,7 +12,7 @@ import authRoutes from "./auth.routes.js";
 const router = Router();
 
 // Define las rutas para los usuarios /api/users
-router.use("/users",  userRoutes);
+router.use("/user",  userRoutes);
 // Define las rutas para la autenticación /api/auth
 router.use("/auth", authRoutes);
 
