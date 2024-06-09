@@ -32,17 +32,15 @@ export async function updateUser(data) {
     try {
         const response = await axios.put('/user/', data);
         return response.data;
-        //! Falta ver lo de la alerta, para el mensaje personalizado cuando modifique a un usuario
     } catch (error) {
         throw error.response?.data || error.message;
     }
 }
 
-export async function deleteUser(data) { // ? sera un boton que le envie el rut de la persona seleccionada a esta función
+export async function deleteUser(data) {
     try {
         const response = await axios.put('/user/', data);
         return response.data;
-        //! Falta ver lo de la alerta, para el mensaje personalizado cuando elimine a un usuario
     } catch (error) {
         throw error.response?.data || error.message;
     }
