@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 const Form = ({ title, fields, buttonText, onSubmit, footerContent, backgroundColor }) => {
 
     const handleSubmit = (event) => {
@@ -17,10 +15,12 @@ const Form = ({ title, fields, buttonText, onSubmit, footerContent, backgroundCo
             <h1>{title}</h1>
             {fields.map((field, index) => (
                 <div className="container_inputs" key={index}>
+                    {field.label && <label htmlFor={field.name}>{field.label}</label>}
                     <input
-                        type={field.type || "text"}
+                        label={field.type || "text"}
                         name={field.name}
                         placeholder={field.placeholder}
+                        type={field.type || "text"}
                         value={field.value}
                         required={field.required}
                         disabled={field.disabled}
@@ -33,25 +33,5 @@ const Form = ({ title, fields, buttonText, onSubmit, footerContent, backgroundCo
     );
 };
 
-Form.propTypes = {
-    title: PropTypes.string.isRequired,
-    fields: PropTypes.arrayOf(PropTypes.shape({
-        type: PropTypes.string,
-        name: PropTypes.string.isRequired,
-        placeholder: PropTypes.string,
-        value: PropTypes.string,
-        required: PropTypes.bool,
-        disabled: PropTypes.bool
-    })).isRequired,
-    buttonText: PropTypes.string,
-    onSubmit: PropTypes.func.isRequired,
-    footerContent: PropTypes.node,
-    backgroundColor: PropTypes.string
-};
-
-Form.defaultProps = {
-    title: '',
-    onSubmit: () => {},
-  };
 
 export default Form;
