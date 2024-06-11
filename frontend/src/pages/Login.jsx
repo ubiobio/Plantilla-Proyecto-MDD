@@ -19,17 +19,20 @@ const Login = () => {
                 title="Iniciar sesión"
                 fields={[
                     {
+                        label: "Correo electrónico",
                         name: "email",
-                        placeholder: "Ingrese su correo electrónico",
+                        placeholder: "example@gmail.com",
                         type: "email",
                         required: true,
                     },
                     {
+                        label: "Contraseña",
                         name: "password",
-                        placeholder: "Ingrese su contraseña",
+                        placeholder: "**********",
                         type: "password",
                         required: true,
                     },
+                    
                 ]}
                 buttonText="Iniciar sesión"
                 onSubmit={loginSubmit}
