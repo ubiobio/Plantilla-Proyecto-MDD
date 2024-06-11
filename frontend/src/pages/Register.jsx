@@ -20,23 +20,27 @@ const Register = () => {
 				title="Crea tu cuenta"
 				fields={[
 					{
+						label: "Nombre de usuario",
 						name: "username",
-						placeholder: "Ingrese su nombre de usuario",
+						placeholder: "Didudo",
 						type: "text",
 					},
                     {
+						label: "Correo electrónico",
                         name: "email",
-                        placeholder: "Ingrese su correo electrónico",
+                        placeholder: "example@gmail.com",
                         type: "email",
                     },
                     {
+						label: "RUT",
                         name: "rut",
-                        placeholder: "Ingrese su rut",
+                        placeholder: "23.770.330-1",
                         type: "text",
                     },
 					{
+						label: "Contraseña",
 						name: "password",
-						placeholder: "Ingrese su contraseña",
+						placeholder: "*********",
 						type: "password",
 					},
 				]}
