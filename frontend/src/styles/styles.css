@@ -40,7 +40,6 @@ body {
 		height: auto;
 		width: 150px;
 	}
-	/* Falta agregar que el texto siga centrado aun cuando la resolucion sea muy pequeña */
 	h1 {
 		margin: 0;
 		color: #eef7ff;
@@ -73,6 +72,11 @@ body {
 		width: 100%;
 		display: flex;
 	}
+	label {
+		color: #003366;
+		font-weight: bold;
+		margin-bottom: 0.5vh;
+	}
 	input {
 		display: flex;
 		border: 3px solid #003366;
@@ -94,6 +98,7 @@ body {
 		font-weight: regular;
 	}
 	button {
+		padding: auto;
 		display: flex;
 		justify-content: center;
 		padding: 1.2vh 0;
@@ -105,6 +110,7 @@ body {
 		font-weight: bold;
 		font-size: 16px;
 		border: 3px solid #003366;
+		margin-top: 10px;
 	}
 	button:hover{
 		border: 3px solid #003366;
@@ -192,17 +198,20 @@ body {
 	background-color: #eef7ff;
 	display: block;
 	height: 90vh;
-	padding: 9vh 5vh 0 5vh;
+	padding: 9vh 0 0 5vh;
 	.sections{
 		display: flex;
 		height: 100%;
 		width: 100%;
-		justify-content: space-around;
+		justify-content: center;
 		align-items: center;
 		.profile_image{
 		height: 50vh;
 		width: auto;
 		}
+	}
+	.form {
+		width: 40%;
 	}
 }
 
@@ -241,3 +250,124 @@ body {
 		}
 	}
 }
+
+#users {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 18px;
+    text-align: left;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+	border: 2px solid #2c3e50;
+}
+
+#users thead tr {
+    background-color: #002651;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+#users th, #users td {
+    padding: 12px 15px;
+	text-align: center;
+  	vertical-align: middle; 
+}
+
+#users tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+#users tbody tr:nth-of-type(even) {
+    background-color: rgba(0, 51, 102, 0.15);
+}
+
+#users tbody tr:last-of-type {
+    border-bottom: 2px solid #2c3e50;
+}
+
+#users tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+#users .icon {
+    cursor: pointer;
+}
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 80%;
+}
+
+#users img {
+	width: 24px;
+	height: 24px;
+}
+
+#users .empty-row {
+    height: 20px;
+}
+
+#users .empty-row td {
+    border: none;
+	height: 24px;
+}
+
+#users .no-data {
+    text-align: center;
+    color: #666;
+    padding: 14px;
+    white-space: nowrap;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.search-container {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 10px;
+	margin-left: 22%;
+  }
+  
+  .search-input-wrapper {
+	position: relative;
+	width: 100%;
+	max-width: 200px;
+  }
+  
+  .search-input {
+	width: 100%;
+	padding: 8px 16px 8px 40px;
+	border-radius: 20px;
+	border: 1px solid #ccc;
+	font-size: 16px;
+	background-color: #002651;
+	color: white;
+	outline: none;
+  }
+  
+  .search-input::placeholder {
+	color: white;
+	font-family: "Montserrat", sans-serif;
+  }
+  
+  .search-icon {
+	position: absolute;
+	left: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 20px;
+	height: 20px;
+	pointer-events: none;
+  }
