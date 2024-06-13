@@ -6,7 +6,7 @@ export async function login(data) {
         const response = await axios.post('/auth/login', data);
         const {status} = response;
         if(status === 200) {
-            sessionStorage.setItem('user', JSON.stringify(response.data));
+            sessionStorage.setItem('usuario', JSON.stringify(response.data));
         }
         return response.data;
     } catch (error) {
@@ -40,7 +40,7 @@ export async function profile() {
 export async function logout() {
     try {
         await axios.post('/auth/logout');
-        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('usuario');
         cookies.remove('miCookie');
     } catch (error) {
         console.error('Error al cerrar sesión:', error);
