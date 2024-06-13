@@ -53,13 +53,13 @@ export async function register(req, res) {
         const userData = req.body;
 
         const existingUser = await User.findOne({ email: userData.email });
-        // Verificar si el correo electrónico ya está en uso
+
         if (existingUser) {
             return res.status(400).json({ message: "El correo electrónico ya está registrado." });
         }
 
 
-        const userRole = await Role.findOne({ name: 'user' });
+        const userRole = await Role.findOne({ name: 'usuario' });
         if (!userRole) {
             return res.status(500).json({ message: "Error al asignar el rol de usuario." });
         }
@@ -69,7 +69,7 @@ export async function register(req, res) {
             email: userData.email,
             rut: userData.rut,
             password: await User.encryptPassword(userData.password),
-            roles: [userRole._id] // Asignar el ObjectId del rol "user"
+            roles: [userRole._id]
         });
         await newUser.save();
 
