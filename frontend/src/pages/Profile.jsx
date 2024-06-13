@@ -28,28 +28,34 @@ const Profile = () => {
       <Navbar />
       <div className="sections">
         <img className="profile_image" src="profile.png" alt="Imagen de perfil" />
+        <div className="form">
         <Form
           backgroundColor="#FFFFFF"
+          title="Perfil"
           fields={[
             {
+              label: "Nombre de usuario",
               name: "username",
               type: "text",
               value: userProfile.username,
               disabled: true,
             },
             {
+              label: "Correo electrónico",
               name: "email",
               type: "email",
               value: userProfile.email,
               disabled: true,
             },
             {
+              label: "RUT",
               name: "rut",
               type: "text",
               value: userProfile.rut,
               disabled: true,
             },
             {
+              label: "Rol",
               name: "role",
               type: "text",
               value: userProfile.rolName,
@@ -57,6 +63,7 @@ const Profile = () => {
             },
           ]}
         />
+        </div>
       </div>
     </main>
   );
