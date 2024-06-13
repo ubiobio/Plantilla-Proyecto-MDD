@@ -1,5 +1,6 @@
 // Importa el modelo de datos 'User'
 import User from '../models/user.model.js';
+import Role from '../models/role.model.js';
 
 export async function getUser(req, res) {
     try {
@@ -35,7 +36,7 @@ export async function getUser(req, res) {
 
 export async function getUsers(req, res) {
     try {
-        const users = await User.find();
+        const users = await User.find().populate('roles', 'name');
         res.status(200).json({
             message: "Lista de usuarios",
             data: users
@@ -59,6 +60,21 @@ export async function updateUser(req, res) {
             return;
         }
 
+        if (updatedData.roles) {
+            const rolesNames = updatedData.roles;
+            const roles = await Role.find({ name: { $in: rolesNames } });
+
+            if (roles.length !== rolesNames.length) {
+                res.status(400).json({
+                    message: "Uno o más roles no son válidos.",
+                    data: null
+                });
+                return;
+            }
+
+            const rolesIds = roles.map(role => role._id);
+            updatedData.roles = rolesIds;
+        }
         const userMod = await User.findOneAndUpdate({ rut: rutUser }, updatedData, { new: true });
 
         if (!userMod) {
@@ -83,7 +99,6 @@ export async function updateUser(req, res) {
 export async function deleteUser(req, res) {
     try {
         const rutUser = req.query.rut;
-
         if (!rutUser) {
             res.status(400).json({
                 message: "El parámetro 'rut' es requerido.",
