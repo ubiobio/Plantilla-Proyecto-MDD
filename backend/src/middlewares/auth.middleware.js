@@ -15,7 +15,7 @@ async function isAdmin(req, res, next) {
     const userRole = req.session.user.rolName;
 
     // Verifica si el usuario tiene el rol de administrador
-    if (userRole === 'admin') {
+    if (userRole === 'administrador') {
       // El usuario tiene el rol adecuado, continua con la siguiente función de middleware
       next();
       return;
