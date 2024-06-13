@@ -1,19 +1,5 @@
 import axios from './root.service.js';
 
-export async function getUser(searchValue) {
-    try {
-        const config = {
-            headers: {
-                'Cache-Control': 'no-cache'
-            }
-        }
-        const { data } = await axios.get('/user/1'+ searchValue, config);
-        return data;
-    } catch (error) {
-        throw error.response?.data || error.message;
-    }
-}
-
 export async function getUsers() {
     try {
         const config = {
@@ -30,16 +16,16 @@ export async function getUsers() {
 
 export async function updateUser(data) {
     try {
-        const response = await axios.put('/user/', data);
+        const response = await axios.put('/user/?rut=213087702', data);
         return response.data;
     } catch (error) {
         throw error.response?.data || error.message;
     }
 }
 
-export async function deleteUser(data) {
+export async function deleteUser(rut) {
     try {
-        const response = await axios.put('/user/', data);
+        const response = await axios.delete(`/user/?rut=${rut}`);
         return response.data;
     } catch (error) {
         throw error.response?.data || error.message;
