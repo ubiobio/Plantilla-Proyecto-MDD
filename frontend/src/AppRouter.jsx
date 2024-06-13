@@ -6,7 +6,7 @@ import Profile from './pages/Profile';
 import Error404 from './pages/Error404';
 import EditUser from './pages/EditUser';
 import ProtectedRoute from './components/ProtectedRoute';
-
+import Users from './pages/Users';
 const AppRouter = () => {
   return (
     <Routes>
@@ -26,7 +26,7 @@ const AppRouter = () => {
         path="/users" 
         element={
           <ProtectedRoute>
-            <EditUser />
+            <Users />
           </ProtectedRoute>
         } 
       />
