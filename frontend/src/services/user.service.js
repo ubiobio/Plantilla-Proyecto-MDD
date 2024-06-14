@@ -14,9 +14,9 @@ export async function getUsers() {
     }
 }
 
-export async function updateUser(data) {
+export async function updateUser(data, rut) {
     try {
-        const response = await axios.put('/user/?rut=213087702', data);
+        const response = await axios.put(`/user/?rut=${rut}`, data);
         return response.data;
     } catch (error) {
         throw error.response?.data || error.message;
