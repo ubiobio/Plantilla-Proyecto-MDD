@@ -1,18 +1,21 @@
 import { Navigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
-const ProtectedRoute = ({ children }) => {
-    const isAuthenticated = !!sessionStorage.getItem('user');
+const ProtectedRoute = ({ children, allowedRoles }) => {
+    const storedUser = JSON.parse(sessionStorage.getItem('usuario'));
+    const userRole = storedUser?.data?.rolName;
+
+    const isAuthenticated = !!storedUser;
+    const isAuthorized = allowedRoles ? allowedRoles.includes(userRole) : true;
 
     if (!isAuthenticated) {
         return <Navigate to="/" />;
     }
 
-    return children;
-};
+    if (!isAuthorized) {
+        return <Navigate to="/home"/>;
+    }
 
-ProtectedRoute.propTypes = {
-    children: PropTypes.node.isRequired,
+    return children;
 };
 
 export default ProtectedRoute;
