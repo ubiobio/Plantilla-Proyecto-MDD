@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Table from '../components/Table';
 import { getUsers, deleteUser } from '../services/user.service';
-import searchIcon from '../assets/searchIcon.svg'; // Asegúrate de que la ruta sea correcta
+import searchIcon from '../assets/searchIcon.svg';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+
   const columns = ['Nombre', 'Rut', 'Correo', 'Rol', 'Acción'];
 
   const dataUser = async () => {
@@ -31,6 +34,11 @@ const Users = () => {
     } catch (error) {
       console.error("Error: ", error);
     }
+  };
+
+  const handleEdit = (rut) => {
+    const user = users.find(u => u.Rut === rut);
+    navigate(`/edit-user/${rut}`, { state: { user } });
   };
 
   const handleSearch = (e) => {
@@ -63,7 +71,7 @@ const Users = () => {
               />
             </div>
           </div>
-          <Table columns={columns} data={filteredUsers} onDelete={handleDelete} />
+          <Table columns={columns} data={filteredUsers} onDelete={handleDelete} onEdit={handleEdit} />
         </div>
       </div>
     </>
@@ -71,4 +79,3 @@ const Users = () => {
 };
 
 export default Users;
-
