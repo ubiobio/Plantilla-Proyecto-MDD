@@ -7,6 +7,7 @@ import Error404 from './pages/Error404';
 import EditUser from './pages/EditUser';
 import ProtectedRoute from './components/ProtectedRoute';
 import Users from './pages/Users';
+
 const AppRouter = () => {
   return (
     <Routes>
@@ -25,7 +26,7 @@ const AppRouter = () => {
       <Route 
         path="/users" 
         element={
-          <ProtectedRoute>
+          <ProtectedRoute allowedRoles={['administrador']}>
             <Users />
           </ProtectedRoute>
         } 
@@ -35,6 +36,14 @@ const AppRouter = () => {
         element={
           <ProtectedRoute>
             <Profile />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/edit-user/:rut" 
+        element={
+          <ProtectedRoute>
+            <EditUser />
           </ProtectedRoute>
         } 
       />
