@@ -1,7 +1,7 @@
 import deleteIcon from '../assets/deleteIcon.svg';
 import updateIcon from '../assets/updateIcon.svg';
 
-const Table = ({ columns, data, onDelete }) => {
+const Table = ({ columns, data, onDelete, onEdit }) => {
   const totalRows = 7;
   const numEmptyRows = totalRows - (data.length > 0 ? data.length : 1);
 
@@ -28,7 +28,12 @@ const Table = ({ columns, data, onDelete }) => {
                 <td key={col}>
                   {col === 'Acción' ? (
                     <>
-                      <img src={updateIcon} alt="Editar" style={{ marginRight: '10px', cursor: 'pointer', width: '24px', height: '24px' }} />
+                      <img 
+                      src={updateIcon} 
+                      alt="Editar" 
+                      style={{ marginRight: '10px', cursor: 'pointer', width: '24px', height: '24px' }}
+                      onClick={() => onEdit(row.Rut)}
+                      />
                       <img 
                         src={deleteIcon} 
                         alt="Eliminar" 
