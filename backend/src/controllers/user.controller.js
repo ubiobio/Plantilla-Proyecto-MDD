@@ -75,6 +75,10 @@ export async function updateUser(req, res) {
             const rolesIds = roles.map(role => role._id);
             updatedData.roles = rolesIds;
         }
+
+        if (updatedData.password) {
+            updatedData.password = await User.encryptPassword(updatedData.password);
+        }
         const userMod = await User.findOneAndUpdate({ rut: rutUser }, updatedData, { new: true });
 
         if (!userMod) {
